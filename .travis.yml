@@ -1,0 +1,25 @@
+language: ruby
+
+rvm:
+  - 2.3.3
+
+script: bundle exec rake jekyll:prod && bundle exec rake test:html
+
+addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
+
+branches:
+  only:
+    - master
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: _site
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
+
+sudo: false # route your build to the container-based infrastructure for a faster build
